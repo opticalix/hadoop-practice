@@ -20,11 +20,7 @@ public class WordCount {
     public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-<<<<<<< HEAD
 		if(otherArgs.length != 3) {
-=======
-		if(otherArgs.length != 2) {
->>>>>>> 7929b6f5d58edfe810881872341d8ea40080aabf
 			System.err.println("Usage: wordCount <in> <out>"+", otherArgs.length="+otherArgs.length+",otherArgs="+ Arrays.toString(otherArgs));
 			System.exit(2);
 		}
