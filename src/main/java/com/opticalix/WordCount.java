@@ -11,6 +11,8 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
+import java.util.Arrays;
+
 /**
  * https://songlee24.github.io/2015/07/29/mapreduce-word-count/
  */
@@ -19,11 +21,11 @@ public class WordCount {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if(otherArgs.length != 2) {
-			System.err.println("Usage: wordcount <in> <out>");
+			System.err.println("Usage: wordCount <in> <out>"+", otherArgs.length="+otherArgs.length+",otherArgs="+ Arrays.toString(otherArgs));
 			System.exit(2);
 		}
 		
-		Job job = new Job(conf, "wordcount");
+		Job job = new Job(conf, "wordCount");
 		job.setJarByClass(WordCount.class);
 		job.setMapperClass(TokenizerMapper.class);
 		job.setCombinerClass(IntSumReducer.class);
