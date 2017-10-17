@@ -17,7 +17,7 @@ import java.util.Arrays;
  * https://songlee24.github.io/2015/07/29/mapreduce-word-count/
  */
 public class WordCount {
-    public static void main(String[] args) throws Exception {
+    public void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if(otherArgs.length != 3) {
