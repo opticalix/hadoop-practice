@@ -22,7 +22,7 @@ public class ApacheLogAnalysis {
         }
 
 
-        Job job = Job.getInstance(conf, "ApacheLogAnalysis");
+        Job job = new Job(conf, "ApacheLogAnalysis");
         job.setJarByClass(ApacheLogAnalysis.class);
         job.setMapperClass(ApacheLogMapper.class);
         job.setCombinerClass(ApacheLogReducer.class);//combiner?
