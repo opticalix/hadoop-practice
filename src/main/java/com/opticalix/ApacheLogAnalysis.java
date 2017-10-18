@@ -4,6 +4,7 @@ import com.opticalix.mapper.ApacheLogMapper;
 import com.opticalix.reducer.ApacheLogReducer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -27,6 +28,8 @@ public class ApacheLogAnalysis {
         job.setMapperClass(ApacheLogMapper.class);
         job.setCombinerClass(ApacheLogReducer.class);//combiner?
         job.setReducerClass(ApacheLogReducer.class);
+        job.setMapOutputKeyClass(Object.class);
+        job.setMapOutputValueClass(MapWritable.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
         FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
