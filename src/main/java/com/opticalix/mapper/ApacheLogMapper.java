@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ApacheLogMapper extends Mapper<Object, Text, Object, MapWritable> {
+public class ApacheLogMapper extends Mapper<Object, Text, Text, MapWritable> {
 
     private static final String MY_REG = "([0-9.]+)" + "(?:[\\s\\S]+)"
             + "(\\[[^\\[\\]]+])" + "(?:[\\s\\S]*)"
@@ -40,6 +40,6 @@ public class ApacheLogMapper extends Mapper<Object, Text, Object, MapWritable> {
         }
 
         //keep original key
-        context.write(key, mapWritable);
+        context.write(new Text(match.group(LogPart.IP.getIndex())), mapWritable);
     }
 }

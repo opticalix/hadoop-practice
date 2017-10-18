@@ -28,7 +28,7 @@ public class ApacheLogAnalysis {
         job.setMapperClass(ApacheLogMapper.class);
         job.setCombinerClass(ApacheLogReducer.class);//combiner?
         job.setReducerClass(ApacheLogReducer.class);
-        job.setMapOutputKeyClass(Object.class);
+        job.setMapOutputKeyClass(Text.class);//FIXME
         job.setMapOutputValueClass(MapWritable.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
