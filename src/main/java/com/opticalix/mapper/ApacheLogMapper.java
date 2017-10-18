@@ -1,6 +1,5 @@
 package com.opticalix.mapper;
 
-import com.opticalix.ApacheLogAnalysis;
 import com.opticalix.LogPart;
 import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
@@ -27,9 +26,17 @@ public class ApacheLogMapper extends Mapper<Object, Text, Object, MapWritable> {
         MapWritable mapWritable = new MapWritable();
 
         Matcher match = getPattern().matcher(valueStr);
-//        System.out.println("match group count=" + match.groupCount() + ", matches=" + match.matches());
+        if (!match.matches()) {
+            System.err.println("valueStr="+valueStr);
+            System.exit(2);
+            return;
+        }
         for (int i = 1; i <= match.groupCount(); i++) {
-            mapWritable.put(new Text(LogPart.getNameByIndex(i)), new Text(match.group(i)));
+            if (match.matches()) {
+                mapWritable.put(new Text(LogPart.getNameByIndex(i)), new Text(match.group(i)));
+            } else {
+                mapWritable.put(new Text(LogPart.getNameByIndex(i)), new Text(""));
+            }
         }
 
         //keep original key
