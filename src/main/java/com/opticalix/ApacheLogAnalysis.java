@@ -28,8 +28,8 @@ public class ApacheLogAnalysis {
         job.setMapperClass(ApacheLogMapper.class);
         job.setCombinerClass(ApacheLogReducer.class);//combiner?
         job.setReducerClass(ApacheLogReducer.class);
-        job.setMapOutputKeyClass(Text.class);//FIXME
-        job.setMapOutputValueClass(MapWritable.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
         FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
