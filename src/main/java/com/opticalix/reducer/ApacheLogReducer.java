@@ -19,7 +19,7 @@ public class ApacheLogReducer extends Reducer<Text, MapWritable, Text, Text> {
 				sb.append("\t");
 			}
 		}
-		System.out.println("reduce print: "+sb.toString());
+//		System.out.println("reduce print: "+sb.toString());
 		result.set(sb.toString());
 		context.write(key, result);
 	}

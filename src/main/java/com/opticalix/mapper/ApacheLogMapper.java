@@ -27,21 +27,18 @@ public class ApacheLogMapper extends Mapper<Object, Text, Text, MapWritable> {
 
         Matcher match = getPattern().matcher(valueStr);
         if (!match.matches()) {
-            System.err.println("valueStr="+valueStr);
-            System.exit(2);
+//            System.err.println("valueStr="+valueStr);
+//            System.exit(2);
             return;
         }
-        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= match.groupCount(); i++) {
             if (match.matches()) {
                 mapWritable.put(new Text(LogPart.getNameByIndex(i)), new Text(match.group(i)));
-                sb.append(match.group(i) + "\t");
             } else {
                 mapWritable.put(new Text(LogPart.getNameByIndex(i)), new Text(""));
             }
         }
 
-        System.out.println("map print: "+sb.toString());
         //keep original key
         context.write(new Text(match.group(LogPart.IP.getIndex())), mapWritable);
     }
