@@ -40,3 +40,6 @@ proguard/
 *.iml  
 
 *.gradle
+gradle/
+gradlew
+gradlew.bat
