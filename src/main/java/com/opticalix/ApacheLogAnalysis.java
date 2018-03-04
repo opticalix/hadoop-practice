@@ -66,16 +66,16 @@ public class ApacheLogAnalysis {
         job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(NullWritable.class);
-        String inputPath = otherArgs[1];
-        String outputPath = otherArgs[2];
-        FileInputFormat.addInputPath(job, new Path(inputPath));
-        FileOutputFormat.setOutputPath(job, new Path(outputPath));
+        String input = otherArgs[1];
+        String output = otherArgs[2];
+        Path outputPath = new Path(output);
+        FileInputFormat.addInputPath(job, new Path(input));
+        FileOutputFormat.setOutputPath(job, outputPath);
 
-        FileSystem fs = FileSystem.get(new URI(inputPath), conf);
-        Path outPath = new Path(args[1]);
-        if (fs.exists(outPath)) {
-            System.out.print(String.format(Locale.getDefault(), "Delete old dir: %s", outPath));
-            fs.delete(outPath, true);
+        FileSystem fs = FileSystem.get(new URI(input), conf);
+        if (fs.exists(outputPath)) {
+            System.out.print(String.format(Locale.getDefault(), "Delete old dir: %s", outputPath));
+            fs.delete(outputPath, true);
         }
         boolean success = job.waitForCompletion(true);
         if (success) {
