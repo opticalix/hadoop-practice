@@ -1,7 +1,6 @@
 package com.opticalix.mapper;
 
-import com.opticalix.LogPart;
-import org.apache.hadoop.io.MapWritable;
+import com.opticalix.model.LogPart;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 

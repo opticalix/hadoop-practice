@@ -1,5 +1,8 @@
 package com.opticalix.util;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 
 public class StringUtils {
@@ -8,7 +11,7 @@ public class StringUtils {
      * @param logLine sample: 27.19.74.143 - - [30/May/2013:17:38:20 +0800] "GET /static/image/common/faq.gif HTTP/1.1" 200 1127
      * @return string
      */
-    public static String parseLog(String logLine) {
+    public static String parseLogByRegex(String logLine) {
         Matcher matcher = LogRegexParser.match(logLine);
         StringBuilder sb = new StringBuilder();
         if (matcher.matches()) {
@@ -22,5 +25,27 @@ public class StringUtils {
             return sb.toString();
         }
         return "";
+    }
+
+    /**
+     * parse log
+     * @param logLine sample: 27.19.74.143 - - [30/May/2013:17:38:20 +0800] "GET /static/image/common/faq.gif HTTP/1.1" 200 1127
+     * @return string {ip}\t{time}\t{host}\t{status}
+     */
+    public static String parseLog(String logLine) {
+        String logFmt = "dd/MMM/yyyy:HH:mm:ss Z";
+        DateTimeFormatter pntFmtter = DateTimeFormatter.ISO_DATE_TIME;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(logFmt);
+        if (logLine == null) {
+            return pntFmtter.format(LocalDateTime.MIN);
+        }
+        String ip = logLine.substring(0, logLine.indexOf(" - - ")).trim();
+        String formatTime = logLine.substring(logLine.indexOf("[") + 1, logLine.indexOf("]"));
+        String coarseUrl = logLine.substring(logLine.indexOf("\"") + 1, logLine.lastIndexOf("\""));
+        String host = coarseUrl.substring(coarseUrl.indexOf("/"), coarseUrl.indexOf("HTTP")).trim();
+        String status = logLine.substring(logLine.lastIndexOf("\"") + 1, logLine.lastIndexOf(" ")).trim();
+
+        LocalDateTime ldt = LocalDateTime.parse(formatTime, formatter);
+        return pntFmtter.format(ldt);
     }
 }
