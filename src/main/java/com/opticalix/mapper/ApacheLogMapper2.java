@@ -17,7 +17,9 @@ public class ApacheLogMapper2 extends Mapper<LongWritable, Text, LongWritable, T
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         try {
             String parseLog = StringUtils.parseLog(value.toString());
-            context.write(key, new Text(parseLog));
+            if (!"".equals(parseLog)) {
+                context.write(key, new Text(parseLog));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

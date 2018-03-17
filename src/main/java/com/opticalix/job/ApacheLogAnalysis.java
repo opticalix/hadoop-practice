@@ -5,6 +5,8 @@ import com.opticalix.mapper.ApacheLogMapper;
 import com.opticalix.mapper.ApacheLogMapper2;
 import com.opticalix.reducer.ApacheLogReducer;
 import com.opticalix.reducer.ApacheLogReducer2;
+import com.opticalix.util.LogUtil;
+import com.opticalix.util.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -24,6 +26,7 @@ import java.util.Locale;
 
 public class ApacheLogAnalysis {
     public static void start(String[] args) throws Exception {
+//        LogUtil.p(parseLog);
         logAnalysis2(args);
     }
 

@@ -37,15 +37,16 @@ public class StringUtils {
         DateTimeFormatter pntFmtter = DateTimeFormatter.ISO_DATE_TIME;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(logFmt);
         if (logLine == null) {
-            return pntFmtter.format(LocalDateTime.MIN);
+            return "";
         }
         String ip = logLine.substring(0, logLine.indexOf(" - - ")).trim();
-        String formatTime = logLine.substring(logLine.indexOf("[") + 1, logLine.indexOf("]"));
+        String time = logLine.substring(logLine.indexOf("[") + 1, logLine.indexOf("]"));
         String coarseUrl = logLine.substring(logLine.indexOf("\"") + 1, logLine.lastIndexOf("\""));
         String host = coarseUrl.substring(coarseUrl.indexOf("/"), coarseUrl.indexOf("HTTP")).trim();
         String status = logLine.substring(logLine.lastIndexOf("\"") + 1, logLine.lastIndexOf(" ")).trim();
 
-        LocalDateTime ldt = LocalDateTime.parse(formatTime, formatter);
-        return pntFmtter.format(ldt);
+        LocalDateTime ldt = LocalDateTime.parse(time, formatter);
+        String fmtTime = pntFmtter.format(ldt);
+        return ip + "\t" + fmtTime + "\t" + host + "\t" + status;
     }
 }
