@@ -26,6 +26,7 @@ import java.util.Locale;
 
 public class ApacheLogAnalysis {
     public static void start(String[] args) throws Exception {
+//        String parseLog = StringUtils.parseLog("27.19.74.143 - - [30/May/2013:17:38:20 +0800] \"GET /static/image/common/faq.gif HTTP/1.1\" 200 1127");
 //        LogUtil.p(parseLog);
         logAnalysis2(args);
     }

@@ -1,6 +1,6 @@
 package com.opticalix.util;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
@@ -34,8 +34,9 @@ public class StringUtils {
      */
     public static String parseLog(String logLine) {
         String logFmt = "dd/MMM/yyyy:HH:mm:ss Z";
-        DateTimeFormatter pntFmtter = DateTimeFormatter.ISO_DATE_TIME;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(logFmt);
+        String pntFmt = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter readFmtter = DateTimeFormatter.ofPattern(logFmt);
+        DateTimeFormatter pntFmtter = DateTimeFormatter.ofPattern(pntFmt);
         if (logLine == null) {
             return "";
         }
@@ -45,8 +46,9 @@ public class StringUtils {
         String host = coarseUrl.substring(coarseUrl.indexOf("/"), coarseUrl.indexOf("HTTP")).trim();
         String status = logLine.substring(logLine.lastIndexOf("\"") + 1, logLine.lastIndexOf(" ")).trim();
 
-        LocalDateTime ldt = LocalDateTime.parse(time, formatter);
+        LocalDateTime ldt = LocalDateTime.parse(time, readFmtter);
         String fmtTime = pntFmtter.format(ldt);
+        long seconds = Timestamp.valueOf(ldt).getTime() / 1000;
         return ip + "\t" + fmtTime + "\t" + host + "\t" + status;
     }
 }
